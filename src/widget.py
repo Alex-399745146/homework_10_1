@@ -28,3 +28,13 @@ def mask_account_card(open_string: str) -> str:
         account_number: str = part_2
         return account_name + get_mask_account(account_number)
     return "В функцию - mask_account_card(): вводятся неверные данные."
+
+
+def get_date(date_time: str) -> str:
+    """
+    Принимает на вход строку '2024-03-11T02:26:18.671407'
+    и возвращает строку с датой в формате 'ДД.ММ.ГГГГ'.
+    """
+    ls_date = date_time[:10].split("-")
+    format_date = ".".join(ls_date[::-1])
+    return format_date
