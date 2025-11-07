@@ -19,3 +19,7 @@ def filter_by_state(ls_positions: list, status: str = "EXECUTED") -> list:
             new_ls_position.append(dict_position)
 
     return new_ls_position
+
+
+def sort_by_date():
+    pass
