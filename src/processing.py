@@ -21,13 +21,13 @@ def filter_by_state(ls_positions: list, status: str = "EXECUTED") -> list:
     return new_ls_position
 
 
-def sort_by_date(positions: list[dict], direct_sort: bool=True) -> list:
+def sort_by_date(positions: list[dict], direct_sort: bool = True) -> list:
     """
     Принимает список словарей и необязательный параметр, задающий
     порядок сортировки (по умолчанию — убывание).
     :return:
     Возвращает новый список, отсортированный по дате (date).
     """
-    ls_sorted = sorted(positions, key=lambda position: position['date'], reverse=direct_sort)
+    ls_sorted = sorted(positions, key=lambda position: position["date"], reverse=direct_sort)
 
     return ls_sorted
