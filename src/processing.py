@@ -4,7 +4,7 @@
 """
 
 
-def filter_by_state(ls_positions: list, status: str = "EXECUTED") -> list:
+def filter_by_state(array_operations: list, status: str = "EXECUTED") -> list:
     """
     Принимает список словарей и опционально значение для ключа
     state по умолчанию 'EXECUTED'.
@@ -12,13 +12,13 @@ def filter_by_state(ls_positions: list, status: str = "EXECUTED") -> list:
     Возвращает новый список словарей, содержащий только те словари, у которых ключ
     state соответствует указанному значению.
     """
-    new_ls_position = []
+    select_operations = []
 
-    for dict_position in ls_positions:
-        if dict_position["state"] == status:
-            new_ls_position.append(dict_position)
+    for operation in array_operations:
+        if operation["state"] == status:
+            select_operations.append(operation)
 
-    return new_ls_position
+    return select_operations
 
 
 def sort_by_date(positions: list[dict], direct_sort: bool = True) -> list:
