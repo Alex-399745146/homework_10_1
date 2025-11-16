@@ -9,23 +9,29 @@ from src.masks import get_mask_account, get_mask_card_number
 
 def mask_account_card(open_string: str) -> str:
     """
-    Обрабатывать информацию как о картах, так и о счетах.
-    Принимать один аргумент — строку, содержащую тип и номер карты или счета.
+    Обрабатывать информацию как о КАРТАХ, так и о СЧЕТАХ.
+    Принимает один аргумент — строку, содержащую тип и номер карты или счета.
     Возвращать строку с замаскированным номером карты или счёта.
+    # Пример для карты
+    Visa Platinum 7000792289606361 # входной аргумент
+    Visa Platinum 7000 79** **** 6361 # выход функции
+    # Пример для счета
+    Счет 73654108430135874305 # входной аргумент
+    Счет **4305 # выход функции
     """
 
     ls_string = open_string.rsplit(maxsplit=1)  # Разделяем справа один раз.
-    part_1, part_2 = ls_string[0], ls_string[1]
-    part_1 = part_1 + " "
+    name_acc, num_acc = ls_string[0], ls_string[1]
+    prefix = name_acc + " "
 
-    if len(part_2) == 16:
-        card_name: str = part_1
-        card_number: str = part_2
+    if len(num_acc) == 16:
+        card_name = prefix
+        card_number: str = num_acc
         return card_name + get_mask_card_number(card_number)
 
-    elif len(part_2) == 20:
-        account_name: str = part_1
-        account_number: str = part_2
+    elif len(num_acc) == 20:
+        account_name: str = prefix
+        account_number: str = num_acc
         return account_name + get_mask_account(account_number)
     return "В функцию - mask_account_card(): вводятся неверные данные."
 

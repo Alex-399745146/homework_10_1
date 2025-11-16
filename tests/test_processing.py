@@ -8,17 +8,21 @@ import re, pytest
 from src.processing import filter_by_state, sort_by_date
 
 
-@pytest.mark.parametrize('operation', [
-    {'id': 414288290, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
-    {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
-    {'id': 132452323, 'state': 'CANCELED', 'date': '2020-09-12T21:27:25.241689'},
-    {'id': 984357699, 'state': 'EXECUTED', 'date': '2022-03-14T09:21:33.419441'},
-    {'id': 984394534, 'state': 'EXECUTED', 'date': '2017-12-14T08:23:38.419456'},
-    {'id': 123432344, 'state': 'CANCELED', 'date': '2023-11-14T20:11:31.455141'},
-    {'id': 234554322, 'state': 'EXECUTED', 'date': '2024-07-14T05:21:36.519841'},
-    {'id': 768576858, 'state': 'CANCELED', 'date': '2025-01-14T08:25:33.317481'},
-])
-def test_filter_by_state(operation):
+# Параметризованный тест.
+@pytest.mark.parametrize(
+    'operation',
+    [
+        {'id': 414288290, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
+        {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
+        {'id': 132452323, 'state': 'CANCELED', 'date': '2020-09-12T21:27:25.241689'},
+        {'id': 984357699, 'state': 'EXECUTED', 'date': '2022-03-14T09:21:33.419441'},
+        {'id': 984394534, 'state': 'EXECUTED', 'date': '2017-12-14T08:23:38.419456'},
+        {'id': 123432344, 'state': 'CANCELED', 'date': '2023-11-14T20:11:31.455141'},
+        {'id': 234554322, 'state': 'EXECUTED', 'date': '2024-07-14T05:21:36.519841'},
+        {'id': 768576858, 'state': 'CANCELED', 'date': '2025-01-14T08:25:33.317481'},
+    ]
+)
+def test_filter_by_state(operation: dict) -> None:
     """Тест функции filter_by_state"""
 
     """Тесты входных данных"""
@@ -45,6 +49,7 @@ def test_filter_by_state(operation):
         select_operation = filter_by_state([operation], volume_str_state)[0]
 
         assert select_operation['state'] == volume_str_state
+
     elif volume_str_state == 'EXECUTED':
         select_operation = filter_by_state([operation])[0]
 
@@ -63,7 +68,7 @@ def test_filter_by_state(operation):
 
 
 
-def test_sort_by_date(fixture_list_operations):
+def test_sort_by_date(fixture_list_operations: list[dict]) -> None:
     """Тест функции sort_by_date"""
     ls_sorted = sort_by_date(fixture_list_operations, direct_sort = True)
     fresh_operation = fixture_list_operations[-1] # Самое свежее событие.
@@ -72,4 +77,3 @@ def test_sort_by_date(fixture_list_operations):
     assert len(fixture_list_operations) == len(ls_sorted), 'Потеря данных'
     assert ls_sorted[0] == fresh_operation, 'Неверная сортировка по убыванию'
     assert rev_sorted[-1] == fresh_operation, 'Неверная сортировка по возрастанию'
-
