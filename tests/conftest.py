@@ -18,3 +18,18 @@ def fixture_num_str():
     nums_digit_20 = first_digit + rest_digits_20
 
     return { 'digit_16': nums_digit_16, 'digit_20': nums_digit_20}
+
+
+@pytest.fixture
+def fixture_list_operations():
+    """Возвращает список банковских операций словарями"""
+    return [
+    {'id': 414288290, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
+    {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
+    {'id': 132452323, 'state': 'CANCELED', 'date': '2020-09-12T21:27:25.241689'},
+    {'id': 984357699, 'state': 'EXECUTED', 'date': '2022-03-14T09:21:33.419441'},
+    {'id': 984394534, 'state': 'EXECUTED', 'date': '2017-12-15T08:23:38.419456'},
+    {'id': 123432344, 'state': 'CANCELED', 'date': '2023-11-18T20:11:31.455141'},
+    {'id': 234554322, 'state': 'EXECUTED', 'date': '2025-01-14T08:21:36.519841'},
+    {'id': 768576858, 'state': 'EXECUTED', 'date': '2025-01-14T10:25:33.317481'}, # Самое свежее событие.
+]

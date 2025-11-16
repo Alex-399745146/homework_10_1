@@ -33,5 +33,3 @@ def test_get_mask_account(fixture_num_str):
 
     assert account_mask[:2] == '**' and str.isdigit(account_mask[2:]), 'Неверно созданная маска'
     assert type(account_mask) == type('str'), 'Вывод не строкового типа данных'
-
-

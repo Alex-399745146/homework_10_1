@@ -24,6 +24,7 @@ print(mask_account_card(open_string_1))
 print(get_date(date_time))
 
 print('Тест следующих новых фитчей прикрученых к проекту согласно тасков домашки по 10_1')
+
 data = [
 {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
 {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
