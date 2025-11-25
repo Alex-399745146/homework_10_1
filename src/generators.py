@@ -1,6 +1,8 @@
 """
-Этот модуль содержит генераторы для обработки данных транзакций.
+Модуль generators.py содержит
+генераторы для обработки данных транзакций.
 """
+
 from typing import Iterator
 
 
@@ -12,7 +14,7 @@ def filter_by_currency(full_transactions: list, filter_name: str) -> Iterator:
     """
     for report in full_transactions:
         try:
-            currency_name = report['operationAmount']['currency']['name']
+            currency_name = report["operationAmount"]["currency"]["name"]
             if currency_name == filter_name:
                 yield report
         except (KeyError, TypeError):
@@ -25,7 +27,7 @@ def transaction_descriptions(full_transactions: list) -> Iterator:
     каждой операции по очереди.
     """
     for report in full_transactions:
-        descript_transaction = report['description']
+        descript_transaction = report["description"]
         try:
             yield descript_transaction
         except (KeyError, TypeError):
@@ -34,13 +36,13 @@ def transaction_descriptions(full_transactions: list) -> Iterator:
 
 def number_generator(start: int = 1) -> Iterator:
     """Генератор 1-16 значных чисел."""
-    limit_level = 9999999999999999  #  Лимит 16-ти значного числа.
+    limit_level = 9999999999999999  # Лимит 16-ти значного числа.
     while start <= limit_level:
         yield start
         start += 1
 
 
-def card_number_generator(start: int, end: int, separator: str = ' ') -> Iterator:
+def card_number_generator(start: int, end: int, separator: str = " ") -> Iterator:
     """
     Генерирует числа в формате XXXX XXXX XXXX XXXX, где X — цифры номера карты,
     диапазоне генерации 0000 0000 0000 0001 до 9999 9999 9999 9999.
@@ -50,8 +52,8 @@ def card_number_generator(start: int, end: int, separator: str = ' ') -> Iterato
         if number > end:
             break
 
-        format_number = f'{number:016d}'  # Форматирование через f-строку.
-        num_mask = separator.join([format_number[num: num+4] for num in range(0, len(format_number), 4)])
+        format_number = f"{number:016d}"  # Форматирование через f-строку.
+        num_mask = separator.join([format_number[num : num + 4] for num in range(0, len(format_number), 4)])
         yield num_mask
 
 
