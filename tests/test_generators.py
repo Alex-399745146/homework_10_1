@@ -5,7 +5,7 @@
 
 import pytest
 
-from src.generators import card_number_generator, filter_by_currency, number_generator, transaction_descriptions
+from src.generators import card_number_generator, filter_by_currency, numbers_generator, transaction_descriptions
 
 world_currency_codes: tuple = (
     "RUB",
@@ -60,7 +60,7 @@ world_currency_codes: tuple = (
     "LYD",
 )
 
-full_transactions: list[dict] = [
+data_array_transactions: list[dict] = [
     {
         "id": 939719570,
         "state": "EXECUTED",
@@ -110,45 +110,49 @@ full_transactions: list[dict] = [
 
 
 @pytest.mark.parametrize(
-    "full_transactions, filter_name, result",
+    "transactions, filter_currency, expected_result",
     [
-        (full_transactions[:], "RUB", 1),
-        (full_transactions[:], "EUR", 0),
-        (full_transactions[:], "USD", 2),
+        (data_array_transactions, "RUB", 1),
+        (data_array_transactions, "EUR", 0),
+        (data_array_transactions, "USD", 2),
         ([], "RUB", 0),
     ],
 )
-def test_filter_by_currency(full_transactions: list[dict], filter_name: str, result: int) -> None:
+def test_filter_by_currency(transactions: list[dict], filter_currency: str, expected_result: int) -> None:
     """Тест функции filter_by_currency"""
-    assert len(list(filter_by_currency(full_transactions, filter_name))) == result
-    assert filter_name in world_currency_codes, f"Не корректный код валюты >> {filter_name}."
+    selected_transactions = list(filter_by_currency(transactions, filter_currency))
+
+    assert len(selected_transactions) == expected_result, "Не корректная работа фильтрующей функции"
+    assert filter_currency in world_currency_codes, f"Не корректный код валюты >> {filter_currency}."
 
 
 @pytest.mark.parametrize(
-    "transaction, result",
+    "transaction, expected_descriptions",
     [
-        ([full_transactions[0]], "Перевод организации"),
-        ([full_transactions[1]], "Перевод со счета на счет"),
-        ([full_transactions[2]], "Перевод со счета на счет"),
-        ([full_transactions[3]], "Перевод с карты на карту"),
-        ([full_transactions[4]], "Перевод организации"),
+        ([data_array_transactions[0]], "Перевод организации"),
+        ([data_array_transactions[1]], "Перевод со счета на счет"),
+        ([data_array_transactions[2]], "Перевод со счета на счет"),
+        ([data_array_transactions[3]], "Перевод с карты на карту"),
+        ([data_array_transactions[4]], "Перевод организации"),
     ],
 )
-def test_transaction_descriptions(transaction: list[dict], result: str) -> None:
+def test_transaction_descriptions(transaction: list[dict], expected_descriptions: str) -> None:
     """Тест функции transaction_descriptions"""
-    assert next(transaction_descriptions(transaction)) == result
+    messages_description = transaction_descriptions(transaction)
+
+    assert next(messages_description) == expected_descriptions
 
 
 def test_number_generator() -> None:
-    """Тест функции number_generator."""
-    expected = [100, 101, 102, 103, 104, 105, 106, 107]
-    # Создаём генератор и берём первые 8 значений.
-    generator = number_generator(100)
-    fact_result = list(next(generator) for _ in range(8))
-    assert expected == fact_result
+    """Тест функции number_generator"""
+    expected_dataset = [100, 101, 102, 103, 104, 105, 106, 107]
+    on_generator = numbers_generator(100)
+    get_data_nums = list(next(on_generator) for _ in range(8))
+
+    assert expected_dataset == get_data_nums
 
 
-expected_result = [
+format_dataset = [
     [
         "0000 0000 0000 0000",
         "0000 0000 0000 0001",
@@ -163,14 +167,15 @@ expected_result = [
 
 
 @pytest.mark.parametrize(
-    "start, stop, exception",
+    "start_card_number, finish_card_number, format_dataset",
     [
-        (0, 2, expected_result[0]),
-        (7079234523434560, 7079234523434561, expected_result[1]),
-        (10000000000000000, 10000000000000001, expected_result[2]),
+        (0, 2, format_dataset[0]),
+        (7079234523434560, 7079234523434561, format_dataset[1]),
+        (10000000000000000, 10000000000000001, format_dataset[2]),
     ],
 )
-def test_card_number_generator(start: int, stop: int, exception: list[str]) -> None:
+def test_card_number_generator(start_card_number: int, finish_card_number: int, format_dataset: list[str]) -> None:
     """Тест функции card_number_generator"""
-    generator = list(card_number_generator(start, stop))
-    assert generator == exception
+    set_card_numbers = list(card_number_generator(start_card_number, finish_card_number))
+
+    assert set_card_numbers == format_dataset

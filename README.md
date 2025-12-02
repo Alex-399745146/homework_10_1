@@ -43,6 +43,88 @@
         3. Вспомогательная генераторная функция number_generator - генератор чисел от 1 до 16 разрядного числа. 
         4. Генераторная функция номера карт в формате 9999 9999 9999 9999 (card_number_generator).
 
+#### Для проверки функций filter_by_currency и transaction_descriptions:
+```
+transactions = (
+    [
+        {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "operationAmount": {
+                "amount": "9824.07",
+                "currency": {
+                    "name": "USD",
+                    "code": "USD"
+                }
+            },
+            "description": "Перевод организации",
+            "from": "Счет 75106830613657916952",
+            "to": "Счет 11776614605963066702"
+        },
+        {
+            "id": 142264268,
+            "state": "EXECUTED",
+            "date": "2019-04-04T23:20:05.206878",
+            "operationAmount": {
+                "amount": "79114.93",
+                "currency": {
+                    "name": "USD",
+                    "code": "USD"
+                }
+            },
+            "description": "Перевод со счета на счет",
+            "from": "Счет 19708645243227258542",
+            "to": "Счет 75651667383060284188"
+        },
+        {
+            "id": 873106923,
+            "state": "EXECUTED",
+            "date": "2019-03-23T01:09:46.296404",
+            "operationAmount": {
+                "amount": "43318.34",
+                "currency": {
+                    "name": "руб.",
+                    "code": "RUB"
+                }
+            },
+            "description": "Перевод со счета на счет",
+            "from": "Счет 44812258784861134719",
+            "to": "Счет 74489636417521191160"
+        },
+        {
+            "id": 895315941,
+            "state": "EXECUTED",
+            "date": "2018-08-19T04:27:37.904916",
+            "operationAmount": {
+                "amount": "56883.54",
+                "currency": {
+                    "name": "USD",
+                    "code": "USD"
+                }
+            },
+            "description": "Перевод с карты на карту",
+            "from": "Visa Classic 6831982476737658",
+            "to": "Visa Platinum 8990922113665229"
+        },
+        {
+            "id": 594226727,
+            "state": "CANCELED",
+            "date": "2018-09-12T21:27:25.241689",
+            "operationAmount": {
+                "amount": "67314.70",
+                "currency": {
+                    "name": "руб.",
+                    "code": "RUB"
+                }
+            },
+            "description": "Перевод организации",
+            "from": "Visa Platinum 1246377376343588",
+            "to": "Счет 14211924144426031657"
+        }
+    ]
+)
+```
 ### Модуль <span style="color: red;">masks.py</span>
     Реализованно в этом модуле две функции:
         1. Функцию маскировки номера банковской карты get_mask_card_number.
@@ -63,7 +145,46 @@
 
 ### Модуль <span style="color: red;">main.py</span>
     В файле main.py реализуется основная логика виджета.
+#### Проверочный код работы функций из модуля main.py
+```
+from src.masks import get_mask_account, get_mask_card_number
+from src.processing import filter_by_state, sort_by_date
+from src.widget import get_date, mask_account_card
 
+card_number = "7000792289606361"
+
+account_number = "73654108430135874305"
+
+open_string = "Visa Platinum 7000792289606361"
+open_string_1 = "Счет 73654108430135874305"
+
+date_time = "2024-03-11T02:26:18.671407"
+
+
+print(get_mask_card_number(card_number))
+print(get_mask_account(account_number))
+print(mask_account_card(open_string))
+print(mask_account_card(open_string_1))
+print(get_date(date_time))
+
+print("Тест следующих новых фитчей прикрученых к проекту согласно тасков домашки по 10_1")
+
+data = [
+    {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+    {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+    {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+    {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+]
+
+[print(f"{i}") for i in filter_by_state(data, "CANCELED")]
+print()
+[print(f"{i}") for i in filter_by_state(data)]
+print()
+
+print("Согласно таска сортировка на убывание.")
+for i in sort_by_date(data):
+    print(i["date"][:10])
+```
 ---
 
 ## QA-tests
@@ -73,11 +194,18 @@
 - [x] Модули тестируются в отдельных тестовых файлах.
 - [x] Функциональный код покрыт тестами более чем на 80%.
 - [x] При запуске тестов командой pytest все тесты завершаются успешно.
+
+
+### Запуск тестов
 ```sh
 pytest -v
 ```
 ```sh
 pytest --cov
+```
+### Через Poetry запуск теста
+```sh
+poetry run pytest --cov
 ```
 - [x] В репозитории есть папка с отчетом покрытия тестами в формате HTML.
 
@@ -103,10 +231,16 @@ pytest --cov
 
 ---
 ## FAQ
-
+Вывод структуры проекта
+```sh
+dir
+```
+```sh
+Get-ChildItem -Recurse -Depth 1
+```
 Узнать версию интерпретатора Python для проекта надо 3.14
 ```sh
-py -V
+py --version
 ```
 Установка Poetry
 ```sh
@@ -118,49 +252,17 @@ pip install poetry
 ```
 Проверка кода линтерами
 ```sh
-flake8 src
+flake8 .
 ```
 ```sh
-isort src
+isort .
 ```
 ```sh
-black srс
+black .
 ```
 ```sh
-mypy sr
+mypy .
 ```
-Обновление зависимостей
-```sh
-poetry update
-```
-Сравнение обновлений
-```sh
-poetry show --latest
-```
-Проверить дерево зависимостей
-```sh
-poetry show --tree
-```
-        Package           Version
-        ----------------- -------
-        black             25.9.0
-        click             8.3.0
-        colorama          0.4.6
-        flake8            7.3.0
-        isort             7.0.0
-        mccabe            0.7.0
-        mypy              1.18.2
-        mypy_extensions   1.1.0
-        packaging         25.0
-        pathspec          0.12.1
-        pip               25.2
-        platformdirs      4.5.0
-        poetry-core       2.2.1
-        pycodestyle       2.14.0
-        pyflakes          3.4.0
-        pytokens          0.2.0
-        typing_extensions 4.15.0
-
 ---
 
 ## Команда проекта
@@ -177,7 +279,7 @@ bachevskiiaa@gmail.com
 -------------|----------------------------
 Skypro       | https://my.sky.pro 
 Я.Практикум  | https://practicum.yandex.ru 
-Stepik       |  https://stepik.org
+Stepik       | https://stepik.org
 
 [<span style="color: green;">Skypro</span>](https://my.sky.pro/student-cabinet/stream-lesson/197233/homework-requirements)
 [<span style="color: green;">Я.Практикум</span>](https://practicum.yandex.ru/)

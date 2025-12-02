@@ -38,7 +38,7 @@ def fixture_list_operations() -> list[dict[str, str | int]]:
 
 
 @pytest.fixture
-def fixture_full_transactions() -> list[dict]:
+def fixture_data_array_transactions() -> list[dict]:
     """Фикстура примера входных данных"""
     return [
         {
