@@ -1,8 +1,12 @@
+"""
+В модуле decorators.py
+Этот модуль будет использоваться для размещения декораторов.
+"""
 from datetime import datetime
 from functools import wraps
 
 
-name_file_logs = 'mylog.txt'
+log_file = 'mylog.txt'
 
 
 def log(filename=None):
@@ -30,6 +34,7 @@ def log(filename=None):
             if filename:
                 with open(filename, 'a', encoding='utf-8') as file:
                     file.write(data_log)
+
             else:
                 return print(data_log)
 
@@ -37,20 +42,11 @@ def log(filename=None):
 
     return decorator
 
-#name_file_logs
-@log()
+
+@log(log_file)
 def my_function(x, y):
     """ Простая функция суммирования аргументов """
     return x + y
 
-@log(name_file_logs)  # Без указания файла — вывод в консоль
-def another_function(a, b, c=0):
-    """Функция с именованными аргументами"""
-    if a < 0:
-        raise ValueError('ValueError')
-    return a + b + c
-
 
 my_function(1, 2)
-another_function(3, 4, c=5)
-another_function(-1, 2)
