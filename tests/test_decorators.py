@@ -2,7 +2,8 @@
 Тестовый-модуль tests_decorators.py
 Содержит кейсы для тестирования функций модуля generators.py.
 """
-from src.decorators import my_function
+
+from src.decorators import log_file, my_function
 
 
 def test_log_my_function(capsys):
@@ -12,16 +13,16 @@ def test_log_my_function(capsys):
     if not (captured.out and captured.err):
 
         #  Данные не выводятся в stdout, они выводятся в file, смотрим в него.
-        with open('mylog.txt', 'r', encoding='utf-8') as file:
+        with open("mylog.txt", "r", encoding="utf-8") as file:
             log_content = file.read()
 
-        generator_logs = (line_log.strip() for line_log in log_content.split('\n') if line_log.strip())
+        generator_logs = (line_log.strip() for line_log in log_content.split("\n") if line_log.strip())
 
         for log_report in generator_logs:
             components_log_report = log_report.split()
             function_operation_status = components_log_report[3]
 
-            assert function_operation_status == 'ok', f'В {log_file} есть данные об ошибках.'
+            assert function_operation_status == "ok", f"В {log_file} есть данные об ошибках."
 
     else:
 
@@ -30,8 +31,8 @@ def test_log_my_function(capsys):
         name_func = components_log_terminal[2]
         function_operation_status = components_log_terminal[3]
 
-        assert name_func == my_function.__name__, 'Декоратор в логах формирует не правильно имя_функции'
-        assert captured.err == '', 'Декоратор работает не корректно'
+        assert name_func == my_function.__name__, "Декоратор в логах формирует не правильно имя_функции"
+        assert captured.err == "", "Декоратор работает не корректно"
 
-        if captured.err == '':
-            assert function_operation_status == 'ok', 'Декоратор не правильно формирует логи'
+        if captured.err == "":
+            assert function_operation_status == "ok", "Декоратор не правильно формирует логи"
