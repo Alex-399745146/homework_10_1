@@ -4,9 +4,10 @@
 """
 
 from src.decorators import log_file, my_function
+from typing import Any
 
 
-def test_log_my_function(capsys):
+def test_log_my_function(capsys: Any) -> Any:
     my_function(1, 2)
     captured = capsys.readouterr()
 

@@ -5,24 +5,23 @@
 
 from datetime import datetime
 from functools import wraps
-from typing import Callable
+from typing import Callable, Any
 
 log_file = "mylog.txt"
 
 
-def log(filename: str | None = None) -> Callable[[int], Callable[[tuple[int, ...]], int]]:
+def log(filename: str | None = None) -> Callable:
 
-    def decorator(func: int) -> Callable[[tuple[int, ...]], int]:
+    def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args: int) -> int:
-            global message
+        def wrapper(*args: Any) -> Any:
+
             timer_start = datetime.now()
             func_name: str = str(func.__name__)
 
             try:
                 result = func
                 message = f"{func_name} ok"
-                return result
 
             except ValueError as error_1:
                 message = f"{func_name} error: {error_1}. Inputs: {args}"
