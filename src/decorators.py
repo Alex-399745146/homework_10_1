@@ -14,21 +14,22 @@ def log(filename: str | None = None) -> Callable:
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args: Any) -> Any:
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
 
             timer_start = datetime.now()
             func_name: str = str(func.__name__)
+            message = f"{func_name} ok"
 
             try:
-                result = func
-                message = f"{func_name} ok"
+                result = func(*args, **kwargs)
+                return result
 
             except ValueError as error_1:
-                message = f"{func_name} error: {error_1}. Inputs: {args}"
+                message = f"{func_name} error: {error_1}. Inputs: {args}, {kwargs}"
                 raise
 
             except Exception as error_2:
-                message = f"{func_name} unexpected error: {error_2}. Inputs: {args}"
+                message = f"{func_name} unexpected error: {error_2}. Inputs: {args}, {kwargs}"
                 raise
 
             finally:
@@ -53,4 +54,4 @@ def my_function(x: int, y: int) -> int:
     return x + y
 
 
-my_function(1)
+my_function(1, 2)
