@@ -12,6 +12,7 @@ from typing import Any, Dict
 import requests
 from dotenv import load_dotenv
 
+
 # Загрузка переменных из .env-файла
 load_dotenv()
 
@@ -29,8 +30,7 @@ def convert_amount(amount: int) -> Dict[str, Any]:
     result: Dict[str, Any] = response.json()
     return result
 
-
-data = convert_amount(100)
-print(data)
-for key, value in data.items():
-    print(key, ":", value)
+if __name__ == "__main__":
+    data = convert_amount(100)
+    for key, value in data.items():
+        print(key, ":", value)

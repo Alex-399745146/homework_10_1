@@ -31,4 +31,8 @@ def get_info_operations(file_path: str) -> list:
 if __name__ == "__main__":
     file_path = "C:/Python/Projects/homework_10_1/data/operations.json"
 
-    print(get_info_operations(file_path))
+    data = get_info_operations(file_path)
+    for line in data:
+        print()
+        for key, value in line.items():
+            print(key, ':', value)
