@@ -1,7 +1,7 @@
 import json
 
 
-def get_info_operations(file_path: str):
+def get_info_operations(file_path: str) -> list:
     """
     Принимает путь до лог_файла.json
     :return:
@@ -9,7 +9,7 @@ def get_info_operations(file_path: str):
     """
     try:
 
-        with open(file_path, 'r', encoding='utf-8') as file:
+        with open(file_path, "r", encoding="utf-8") as file:
             data = json.load(file)
 
         if type(data) is list and len(data) > 0:
@@ -29,6 +29,6 @@ def get_info_operations(file_path: str):
 
 
 if __name__ == "__main__":
-    file_path = 'C:/Python/Projects/homework_10_1/data/operations.json'
+    file_path = "C:/Python/Projects/homework_10_1/data/operations.json"
 
     print(get_info_operations(file_path))
