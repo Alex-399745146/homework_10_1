@@ -1,4 +1,7 @@
 import json
+import os
+
+from dotenv import load_dotenv
 
 
 def get_info_operations(file_path: str) -> list:
@@ -29,10 +32,11 @@ def get_info_operations(file_path: str) -> list:
 
 
 if __name__ == "__main__":
-    file_path = "C:/Python/Projects/homework_10_1/data/operations.json"
-
+    load_dotenv()  # Загрузка переменных из .env-файла.
+    file_path = os.getenv("FILE_PATH", "default_log_file.json")
     data = get_info_operations(file_path)
+
     for line in data:
         print()
         for key, value in line.items():
-            print(key, ':', value)
+            print(key, ":", value)
