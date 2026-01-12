@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from src.utils import get_info_operations
 
 
-def convert_amount(transaction: dict) -> Any:
+def get_convert_amount(transaction: dict) -> Any:
     """
     Конвертирует сумму транзакции в рубли по курсу API.
     Возвращает float или поднимает исключение при ошибке.
@@ -25,12 +25,12 @@ def convert_amount(transaction: dict) -> Any:
     headers = {"apikey": os.getenv("API_KEY")}
 
     try:
-        response = requests.get(url, headers=headers, timeout=5)
+        response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()  # Проверить, произошла ли ошибка во время запроса.
 
         if response.status_code == 200:
             response_api = response.json()
-
+            print(response_api)
             return round(response_api["result"], 2)
 
     except requests.exceptions.RequestException as err:
@@ -46,5 +46,5 @@ if __name__ == "__main__":
     load_dotenv()  # Загрузка переменных из .env-файла.
     file_path = os.getenv("FILE_PATH", "default_log_file.json")
     transaction = get_info_operations(file_path)[1]
-    data = convert_amount(transaction)
+    data = get_convert_amount(transaction)
     print(data)
