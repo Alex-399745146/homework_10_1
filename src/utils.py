@@ -20,13 +20,10 @@ def get_info_operations(file_path: str) -> list:
             return []
 
     except FileNotFoundError:
-        print(f"Файл '{file_path}' не найден.")
+        print("Файл не найден")
         return []
-    except json.JSONDecodeError:
-        print(f"Ошибка чтения JSON из файла '{file_path}'.")
-        return []
-    except Exception as exc:
-        print(f"Произошла непредвиденная ошибка: {exc}")
+    except Exception:
+        print("Произошла непредвиденная ошибка")
         return []
 
 
