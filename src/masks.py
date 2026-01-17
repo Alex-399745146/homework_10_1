@@ -17,3 +17,11 @@ def get_mask_account(account_number: str) -> str:
     """Принимает номер счёта и возвращает его маскированную версию"""
     account_mask = "*" * 2 + account_number[-4:]
     return account_mask
+
+
+if __name__ == "__main__":
+    card_number = "7000792289606361"
+    account_number = "73654108430135874305"
+
+    print(get_mask_card_number(card_number))
+    print(get_mask_account(account_number))

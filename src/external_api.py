@@ -1,3 +1,5 @@
+""" Модуль external_api.py содержит функции работающие в валютами а волатильность валют обновляет API """
+
 import os
 from typing import Any
 
