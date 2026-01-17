@@ -5,7 +5,7 @@
 
 from datetime import datetime
 from functools import wraps
-from typing import Callable, Any
+from typing import Any, Callable
 
 log_file = "mylog.txt"
 
