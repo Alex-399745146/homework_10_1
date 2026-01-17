@@ -12,6 +12,7 @@ flake8 = ">=7.3.0"
 mypy = ">=1.18.2"
 black = ">=25.9.0"
 isort = ">=7.0.0"
+requests = "^2.32.5"
 
 
 [build-system]
@@ -26,11 +27,14 @@ lint = [
     "isort (>=7.0.0,<8.0.0)"
 ]
 
-#  Конфигурация mypy.
 dev = [
     "pytest (>=9.0.1,<10.0.0)",
-    "pytest-cov (>=7.0.0,<8.0.0)"
+    "pytest-cov (>=7.0.0,<8.0.0)",
+    "python-dotenv (>=1.2.1,<2.0.0)",
+    "types-requests (>=2.32.4.20260107,<3.0.0.0)"
 ]
+
+#  Конфигурация mypy.
 [tool.mypy]
 disallow_untyped_defs = true
 no_implicit_optional = true

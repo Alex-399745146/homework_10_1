@@ -2,9 +2,56 @@
 Файл conftest.py для хранения фикстур.
 """
 
+import os
 from random import randint
 
 import pytest
+from dotenv import load_dotenv
+
+
+@pytest.fixture
+def fixture_response_api() -> dict:
+    response_api = {
+        "success": True,
+        "query": {"from": "USD", "to": "RUB", "amount": 8221.37},
+        "info": {"timestamp": 1768236064, "rate": 78.24865},
+        "date": "2026-01-12",
+        "result": 643311.103651,
+    }
+    return response_api
+
+
+@pytest.fixture
+def fixture_operation() -> list:
+    transaction = [
+        {
+            "id": 441945886,
+            "state": "EXECUTED",
+            "date": "2019-08-26T10:50:58.294041",
+            "operationAmount": {"amount": "31957.58", "currency": {"name": "руб.", "code": "RUB"}},
+            "description": "Перевод организации",
+            "from": "Maestro 1596837868705199",
+            "to": "Счет 64686473678894779589",
+        },
+        {
+            "id": 41428829,
+            "state": "EXECUTED",
+            "date": "2019-07-03T18:35:29.512364",
+            "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод организации",
+            "from": "MasterCard 7158300734726758",
+            "to": "Счет 35383033474447895560",
+        },
+    ]
+    return transaction
+
+
+@pytest.fixture
+def fixture_path() -> str:
+    """Возвращает строку-путь до лог-файла"""
+    load_dotenv()
+    file_path = os.getenv("FILE_PATH", "default_log_file.json")
+    return file_path
 
 
 # Фикстура с генератором чисел без ведущего нуля.

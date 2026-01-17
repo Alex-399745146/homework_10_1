@@ -8,7 +8,6 @@ def filter_by_state(array_operations: list, status: str = "EXECUTED") -> list:
     """
     Принимает список словарей и опционально значение для ключа
     state по умолчанию 'EXECUTED'.
-    :return:
     Возвращает новый список словарей, содержащий только те словари, у которых ключ
     state соответствует указанному значению.
     """
@@ -25,7 +24,6 @@ def sort_by_date(positions: list[dict], direct_sort: bool = True) -> list:
     """
     Принимает список словарей и необязательный параметр, задающий
     порядок сортировки (по умолчанию — убывание).
-    :return:
     Возвращает новый список, отсортированный по дате (date).
     """
     ls_sorted = sorted(positions, key=lambda position: position["date"], reverse=direct_sort)
