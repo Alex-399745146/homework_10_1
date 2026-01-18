@@ -6,14 +6,22 @@
 """
 
 import logging
+import os
+
+# Переменные для формирования точного пути до лог-файла.
+path_inside_project = os.path.dirname(os.path.abspath(__file__))
+path_inside_logs = "../logs/masks.log"
+
+# Создаем путь до файла логов относительно текущей директории.
+full_path = os.path.join(path_inside_project, path_inside_logs)
+abs_path = os.path.abspath(full_path)
 
 logger = logging.getLogger("masks")
-logger.setLevel(logging.INFO)
-file_handler = logging.FileHandler(filename="logs/masks.log", mode="w", encoding="utf-8")
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler(filename=abs_path, mode="w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(filename)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
-logger.propagate = False
 
 
 def get_mask_card_number(card_number: str) -> str:
