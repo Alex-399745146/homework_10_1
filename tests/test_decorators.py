@@ -3,8 +3,9 @@
 Содержит кейсы для тестирования функций модуля generators.py.
 """
 
-from src.decorators import log_file, my_function
 from typing import Any
+
+from src.decorators import log_file, my_function
 
 
 def test_log_my_function(capsys: Any) -> Any:

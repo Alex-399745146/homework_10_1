@@ -1,3 +1,5 @@
+"""Модуль external_api.py содержит функции работающие c валютами а волатильность обновляет API"""
+
 import os
 from typing import Any
 
