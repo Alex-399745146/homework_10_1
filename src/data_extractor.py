@@ -30,7 +30,7 @@ def get_info_xlsx(file_path: str) -> list[dict]:
     return data
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     load_dotenv()  # Загрузка переменных из .env-файла.
 
     file_csv_path = os.getenv("FILE_PATH_CSV", "default_log_file.csv")

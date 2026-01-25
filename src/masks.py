@@ -53,7 +53,7 @@ def get_mask_account(account_number: str) -> str:
         raise
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     card_number = "7000792289606361"
     account_number = "73654108430135874305"
 

@@ -55,7 +55,7 @@ def get_info_operations(file_path: str) -> list:
         return []
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     load_dotenv()  # Загрузка переменных из .env-файла.
     file_path = os.getenv("FILE_PATH", "default_log_file.json")
     data = get_info_operations(file_path)

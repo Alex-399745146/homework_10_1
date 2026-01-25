@@ -15,6 +15,7 @@ from src.data_extractor import get_info_csv, get_info_xlsx
 
 
 def test_get_info_csv(fixture_transactions: DataFrame) -> None:
+    """Тест функции get_info_csv"""
     load_dotenv()
     file_csv_path = os.getenv("FILE_PATH_CSV", "default_log_file.csv")
     mock_read_csv = Mock(return_value=fixture_transactions)
@@ -34,6 +35,7 @@ def test_get_info_csv(fixture_transactions: DataFrame) -> None:
 
 
 def test_get_info_xlsx(fixture_transactions: DataFrame) -> None:
+    """Тест функции get_info_xlsx"""
     load_dotenv()
     file_xlsx_path = os.getenv("FILE_PATH_XLSX", "default_log_file.xlsx")
     mock_read_excel = Mock(return_value=fixture_transactions)
