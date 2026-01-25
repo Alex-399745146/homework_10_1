@@ -15,9 +15,8 @@ def get_info_csv(file_path: str) -> list[dict]:
     Считывает данные из CSV файла через pandas и возвращает
     список словарей (orient='records')
     """
-    df = pd.read_csv(file_path, sep=';', encoding='utf-8')
-    data = df.to_dict(orient='records')
-
+    df = pd.read_csv(file_path, sep=";", encoding="utf-8")
+    data = df.to_dict(orient="records")
     return data
 
 
@@ -27,8 +26,7 @@ def get_info_xlsx(file_path: str) -> list[dict]:
     список словарей (orient='records')
     """
     df = pd.read_excel(file_path)
-    data = df.to_dict(orient='records')
-
+    data = df.to_dict(orient="records")
     return data
 
 
