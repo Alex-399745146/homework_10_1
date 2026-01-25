@@ -4,22 +4,32 @@
 из файлов CSV- и XLSX-файлов из data.
 """
 
-import csv
-import json
-import logging
 import os
 
+import pandas as pd
 from dotenv import load_dotenv
 
 
-def get_info_csv(file_csv_path: str) -> Any:
-    """ Считывает данные из csv в data и выдаёт их на выходе """
-    pass
+def get_info_csv(file_path: str) -> list[dict]:
+    """
+    Считывает данные из CSV файла через pandas и возвращает
+    список словарей (orient='records')
+    """
+    df = pd.read_csv(file_path, sep=';', encoding='utf-8')
+    data = df.to_dict(orient='records')
+
+    return data
 
 
-def get_info_xlsx(file_csv_path: str) -> Any:
-    """ Считывает данные из xlsx в data и выдаёт их на выходе """
-    pass
+def get_info_xlsx(file_path: str) -> list[dict]:
+    """
+    Считывает данные из XLSX файла через pandas и возвращает
+    список словарей (orient='records')
+    """
+    df = pd.read_excel(file_path)
+    data = df.to_dict(orient='records')
+
+    return data
 
 
 if __name__ == "__main__":
@@ -28,5 +38,11 @@ if __name__ == "__main__":
     file_csv_path = os.getenv("FILE_PATH_CSV", "default_log_file.csv")
     file_xlsx_path = os.getenv("FILE_PATH_XLSX", "default_log_file.xlsx")
 
-    data_csv = get_info_csv(file_path)
+    data_csv = get_info_csv(file_csv_path)
     data_xlsx = get_info_xlsx(file_xlsx_path)
+
+    for transaction in data_csv:
+        print(transaction)
+
+    # for transaction in data_xlsx:
+    #     print(transaction)
