@@ -43,7 +43,7 @@ def get_date(date_time: str) -> str:
     return format_date
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     open_string = "Visa Platinum 7000792289606361"
     open_string_1 = "Счет 73654108430135874305"
     date_time = "2024-03-11T02:26:18.671407"
