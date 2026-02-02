@@ -5,8 +5,7 @@
 
 import os
 import re
-from collections import defaultdict
-from typing import Any
+from collections import Counter
 
 from dotenv import load_dotenv
 
@@ -28,13 +27,17 @@ def process_bank_search(data: list[dict], search_text: str) -> list[dict]:
 
 def process_bank_operations(data: list[dict], categories: list) -> dict:
     """Фильтрация трансакции по категориям с подсчётом операций в категориях"""
-    result: Any = defaultdict(int)
+    filter_categories = []
+
     for transaction in data:
         category = transaction.get("description")
 
-        if category in categories:
-            result[category] += 1
+        if category not in categories:
+            continue
+        else:
+            filter_categories.append(category)
 
+    result = Counter(filter_categories)
     return dict(result)
 
 
@@ -49,10 +52,10 @@ if __name__ == "__main__":
     filter_data_1 = process_bank_search(data, search_text)
     filter_data_2 = process_bank_operations(data, categories)
 
-    # Для 1ой функции
-    for transaction in filter_data_1:
-        print(transaction)
+    # Для 1ой функции поиск выбора.
+    # for transaction in filter_data_1:
+    #     print(transaction)
 
-    # Для 2ой функции
-    # for key, value in filter_data_2.items():
-    #     print(key, value)
+    # Для 2ой функции подсчёта категорий.
+    for key, value in filter_data_2.items():
+        print(key, value)
