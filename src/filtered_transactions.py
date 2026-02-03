@@ -14,10 +14,12 @@ from src.data_extractor import get_info_csv
 
 def process_bank_search(data: list[dict], search_text: str) -> list[dict]:
     """Фильтрация трансакции по ключевому слову"""
-    pattern = re.compile(search_text)
+    pattern = re.compile(search_text, flags=re.IGNORECASE)
+    print(0, search_text)
     result = []
     for transaction in data:
-        if pattern.search(str(transaction)):
+        print(11111111, transaction['description'])
+        if pattern.search(str(transaction['description'])):
             result.append(transaction)
         else:
             continue
@@ -46,7 +48,7 @@ if __name__ == "__main__":
     file_csv_path = os.getenv("FILE_PATH_CSV", "default_log_file.csv")
 
     data = get_info_csv(file_csv_path)
-    search_text = "EXECUTED"
+    search_text = "с карты"
     categories = ["Перевод организации", "Перевод с карты на карту", "Перевод со счета на счет"]
 
     filter_data_1 = process_bank_search(data, search_text)
@@ -57,5 +59,5 @@ if __name__ == "__main__":
     #     print(transaction)
 
     # Для 2ой функции подсчёта категорий.
-    for key, value in filter_data_2.items():
-        print(key, value)
+    # for key, value in filter_data_2.items():
+    #     print(key, value)

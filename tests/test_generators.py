@@ -5,7 +5,7 @@
 
 import pytest
 
-from src.generators import card_number_generator, filter_by_currency, numbers_generator, transaction_descriptions
+from src.generators import card_number_generator, filter_by_currency, _numbers_generator, transaction_descriptions
 
 world_currency_codes: tuple = (
     "RUB",
@@ -146,7 +146,7 @@ def test_transaction_descriptions(transaction: list[dict], expected_descriptions
 def test_number_generator() -> None:
     """Тест функции number_generator"""
     expected_dataset = [100, 101, 102, 103, 104, 105, 106, 107]
-    on_generator = numbers_generator(100)
+    on_generator = _numbers_generator(100)
     get_data_nums = list(next(on_generator) for _ in range(8))
 
     assert expected_dataset == get_data_nums
