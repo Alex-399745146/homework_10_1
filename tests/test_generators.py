@@ -5,7 +5,7 @@
 
 import pytest
 
-from src.generators import card_number_generator, filter_by_currency, _numbers_generator, transaction_descriptions
+from src.generators import _numbers_generator, card_number_generator, filter_by_currency, transaction_descriptions
 
 world_currency_codes: tuple = (
     "RUB",
