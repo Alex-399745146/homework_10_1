@@ -41,7 +41,7 @@ def process_bank_operations(data: list[dict], categories: list) -> dict:
     return dict(result)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     load_dotenv()  # Загрузка переменных из .env-файла.
     file_csv_path = os.getenv("FILE_PATH_CSV", "default_log_file.csv")
 
@@ -53,9 +53,9 @@ if __name__ == "__main__":
     filter_data_2 = process_bank_operations(data, categories)
 
     # Для 1ой функции поиск выбора.
-    for transaction in filter_data_1:
-        print(transaction)
+    # for transaction in filter_data_1:
+    #     print(transaction)
 
     # Для 2ой функции подсчёта категорий.
-    # for key, value in filter_data_2.items():
-    #     print(key, value)
+    for key, value in filter_data_2.items():
+        print(key, value)

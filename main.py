@@ -16,7 +16,7 @@ from src.utils import get_info_operations
 from src.widget import get_date, mask_account_card
 
 
-def main():
+def main() -> None:
     head_message_ai = "\033[31mПрограмма:\033[0m"
     head_message_you = "\033[32mПользователь: \033[0m"  # Спасибо
     menu_item = None
