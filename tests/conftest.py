@@ -114,3 +114,15 @@ def fixture_list_operations() -> list[dict[str, str | int]]:
         {"id": 234554322, "state": "EXECUTED", "date": "2025-01-14T08:21:36.519841"},
         {"id": 768576858, "state": "EXECUTED", "date": "2025-01-14T10:25:33.317481"},
     ]
+
+
+@pytest.fixture
+def fixture_list_operations2() -> list[dict[str, str | int]]:
+    """Возвращает список банковских операций с описанием"""
+    return [
+        {"id": 200634844, "description": "Перевод организации"},
+        {"id": 121646999, "description": "Перевод организации"},
+        {"id": 464419177, "description": "Перевод с карты на счет"},
+        {"id": 594226727, "description": "Перевод организации"},
+        {"id": 615064591, "description": "Перевод с карты на счет"},
+    ]

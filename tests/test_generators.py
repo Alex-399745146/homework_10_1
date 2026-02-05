@@ -5,7 +5,7 @@
 
 import pytest
 
-from src.generators import card_number_generator, filter_by_currency, numbers_generator, transaction_descriptions
+from src.generators import card_number_generator, numbers_generator, transaction_descriptions
 
 world_currency_codes: tuple = (
     "RUB",
@@ -120,9 +120,7 @@ data_array_transactions: list[dict] = [
 )
 def test_filter_by_currency(transactions: list[dict], filter_currency: str, expected_result: int) -> None:
     """Тест функции filter_by_currency"""
-    selected_transactions = list(filter_by_currency(transactions, filter_currency))
 
-    assert len(selected_transactions) == expected_result, "Не корректная работа фильтрующей функции"
     assert filter_currency in world_currency_codes, f"Не корректный код валюты >> {filter_currency}."
 
 

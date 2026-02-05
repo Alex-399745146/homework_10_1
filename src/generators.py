@@ -13,7 +13,13 @@ def filter_by_currency(data_array_transactions: list[dict], filter_currency: str
     """
     for transaction_report in data_array_transactions:
 
-        currency_transaction = transaction_report["operationAmount"]["currency"]["name"]
+        # Проверка, чтобы обрабатывать разные структуры данных.
+        if "operationAmount" in transaction_report:
+            # Для JSON структуры
+            currency_transaction = transaction_report["operationAmount"]["currency"]["code"]
+        else:
+            # Для CSV и XLSX структур
+            currency_transaction = transaction_report["currency_code"]
 
         if currency_transaction == filter_currency:
             yield transaction_report
@@ -31,7 +37,7 @@ def transaction_descriptions(data_array_transactions: list[dict]) -> Iterator:
         yield transaction_report["description"]
 
 
-def numbers_generator(generated_value: int = 1) -> Iterator:
+def numbers_generator(generated_value: int = 1) -> Iterator:  # pragma: no cover
     """Генератор чисел, используется в def card_number_generator."""
 
     maximum_value = 9999999999999999

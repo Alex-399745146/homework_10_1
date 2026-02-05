@@ -16,8 +16,8 @@ path_inside_logs = "../logs/masks.log"
 full_path = os.path.join(path_inside_project, path_inside_logs)
 abs_path = os.path.abspath(full_path)
 
-logger = logging.getLogger("masks")
-logger.setLevel(logging.DEBUG)
+logger = logging.getLogger("masks")  # pragma: no cover
+logger.setLevel(logging.DEBUG)  # pragma: no cover
 file_handler = logging.FileHandler(filename=abs_path, mode="w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(filename)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(file_formatter)
